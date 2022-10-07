@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./components/Admin";
 import Editor from "./components/Editor";
@@ -12,7 +11,7 @@ import Register from "./components/Register";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 function App() {
   return (

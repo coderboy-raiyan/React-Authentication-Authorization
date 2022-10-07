@@ -30,9 +30,7 @@ function Login() {
   const handelSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/auth/login", formData, {
-        withCredentials: true,
-      });
+      const response = await axios.post("/auth/login", formData);
       console.log(response?.data);
       setAuth(response?.data);
       navigate(from, { replace: true });
