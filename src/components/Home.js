@@ -1,14 +1,26 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
-import useRefreshToken from "./../hooks/useRefreshToken";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Home = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
-  const refresh = useRefreshToken();
+  const axiosPrivate = useAxiosPrivate();
 
-  console.log(JSON.stringify(auth));
+  useEffect(() => {
+    if (auth?.user) {
+      async function getDummyUser() {
+        try {
+          const data = await axiosPrivate.get("/dummy");
+          console.log(data.data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      getDummyUser();
+    }
+  }, []);
 
   const logout = async () => {
     // if used in more components, this should be in context
@@ -33,8 +45,6 @@ const Home = () => {
       <div className="flexGrow">
         <button onClick={logout}>Sign Out</button>
       </div>
-
-      <button onClick={() => refresh()}>Refresh</button>
     </section>
   );
 };
